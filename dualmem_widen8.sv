@@ -28,11 +28,11 @@ module dualmem_widen8(clka, clkb, dina, dinb, addra, addrb, wea, web, douta, dou
 `endif
 */
    
-// `ifdef GENESYSII
-//  `define RAMB16
-// `endif
+/* `ifdef KINTEX7
+ `define RAMB16
+`endif
 
-// `ifdef RAMB16
+`ifdef RAMB16 */
    
    assign douta = dout0 >> {addra_dly[12:11],4'b0000};
    assign doutb = dout1 >> {addrb_dly[10:9],6'b000000};
@@ -74,26 +74,26 @@ module dualmem_widen8(clka, clkb, dina, dinb, addra, addrb, wea, web, douta, dou
         );
    endgenerate
 
-//`else // !`ifdef RAMB16
+/* `else // !`ifdef RAMB16
 
 // This bit is a placeholder
 
-// infer_dpram #(.RAM_SIZE(11), .BYTE_WIDTH(8)) ram1 // RAM_SIZE is in words
-// (
-// .ram_clk_a(clka),
-// .ram_en_a(|ena),
-// .ram_we_a({wea[1],wea[1],wea[1],wea[1],wea[0],wea[0],wea[0],wea[0]}),
-// .ram_addr_a(addra),
-// .ram_wrdata_a({dina,dina,dina,dina}),
-// .ram_rddata_a({dout,douta}),
-// .ram_clk_b(clkb),
-// .ram_en_b(|enb),
-// .ram_we_b({web[1],web[1],web[1],web[1],web[0],web[0],web[0],web[0]}),
-// .ram_addr_b({2'b0,addrb}),
-// .ram_wrdata_b(dinb),
-// .ram_rddata_b(doutb)
-//  );
+infer_dpram #(.RAM_SIZE(11), .BYTE_WIDTH(8)) ram1 // RAM_SIZE is in words
+(
+.ram_clk_a(clka),
+.ram_en_a(|ena),
+.ram_we_a({wea[1],wea[1],wea[1],wea[1],wea[0],wea[0],wea[0],wea[0]}),
+.ram_addr_a(addra),
+.ram_wrdata_a({dina,dina,dina,dina}),
+.ram_rddata_a({dout,douta}),
+.ram_clk_b(clkb),
+.ram_en_b(|enb),
+.ram_we_b({web[1],web[1],web[1],web[1],web[0],web[0],web[0],web[0]}),
+.ram_addr_b({2'b0,addrb}),
+.ram_wrdata_b(dinb),
+.ram_rddata_b(doutb)
+ );
    
-// `endif
+`endif */
    
 endmodule // dualmem
